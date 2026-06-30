@@ -1,0 +1,31 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://example.com/schemas/calculation-request-nack.schema.yaml
+title: Calculation Request Nack
+type: object
+additionalProperties: false
+required:
+  - receivedAt
+  - requestId
+  - SFCalculatorId
+  - errors
+properties:
+  receivedAt:
+    $ref: common-fields.schema.yaml#/$defs/envelope/receivedAt
+  requestId:
+    $ref: common-fields.schema.yaml#/$defs/envelope/requestId
+  SFCalculatorId:
+    $ref: common-fields.schema.yaml#/$defs/payload/SFCalculatorId
+  errors:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string

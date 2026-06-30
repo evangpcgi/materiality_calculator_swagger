@@ -1,0 +1,22 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://example.com/schemas/calculation-request-ack.schema.yaml
+title: Calculation Request Ack
+type: object
+additionalProperties: false
+required:
+  - receivedAt
+  - requestId
+  - SFCalculatorId
+  - mpanCore
+  - totalLines
+properties:
+  receivedAt:
+    $ref: common-fields.schema.yaml#/$defs/envelope/receivedAt
+  requestId:
+    $ref: common-fields.schema.yaml#/$defs/envelope/requestId
+  SFCalculatorId:
+    $ref: common-fields.schema.yaml#/$defs/payload/SFCalculatorId
+  mpanCore:
+    $ref: common-fields.schema.yaml#/$defs/payload/mpanCore
+  totalLines:
+    $ref: common-fields.schema.yaml#/$defs/pagination/totalLines

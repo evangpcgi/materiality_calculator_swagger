@@ -1,0 +1,49 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://example.com/schemas/calculation-request.schema.yaml
+title: Calculation Request
+type: object
+additionalProperties: false
+required:
+  - messageType
+  - version
+  - salesforceCallMeta
+  - lines
+properties:
+  messageType:
+    const: calculationRequest
+  version:
+    $ref: common-fields.schema.yaml#/$defs/envelope/version
+  salesforceCallMeta:
+    type: object
+    additionalProperties: false
+    required:
+      - SFCalculatorId
+      - mpanCore
+      - sentAt
+      - totalLines
+    properties:
+      SFCalculatorId:
+        $ref: common-fields.schema.yaml#/$defs/payload/SFCalculatorId
+      mpanCore:
+        $ref: common-fields.schema.yaml#/$defs/payload/mpanCore
+      sentAt:
+        type: string
+        format: date-time
+      totalLines:
+        $ref: common-fields.schema.yaml#/$defs/pagination/totalLines
+  lines:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required:
+        - lineNumber
+        - date
+        - values
+      properties:
+        lineNumber:
+          $ref: common-fields.schema.yaml#/$defs/pagination/lineNumber
+        date:
+          $ref: common-fields.schema.yaml#/$defs/payload/settlementDate
+        values:
+          $ref: common-fields.schema.yaml#/$defs/payload/settlementPeriodValues
