@@ -1,0 +1,27 @@
+openapi: 3.1.0
+info:
+  title: MAteriality Calculator TEST API
+  version: 1.0.0
+
+paths:
+  /calculation-request:
+    post:
+      summary: Send a calculation request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./schemas/calculation-request.schema.yaml
+            examples:
+              hardcoded:
+                value:
+                  messageType: calculationRequest
+                  version: "1.0"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/calculation-request-ack.schema.yaml
