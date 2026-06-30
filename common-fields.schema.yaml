@@ -1,0 +1,46 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://example.com/schemas/common-fields.schema.yaml
+title: Common Fields
+type: object
+$defs:
+  envelope:
+    type: object
+    properties:
+      version:
+        type: string
+        minLength: 1
+      receivedAt:
+        type: string
+        format: date-time
+      requestId:
+        type: string
+        minLength: 1
+    additionalProperties: false
+  payload:
+    type: object
+    properties:
+      SFCalculatorId:
+        type: string
+        minLength: 1
+      mpanCore:
+        type: string
+        minLength: 1
+      settlementDate:
+        type: string
+        format: date
+      settlementPeriodValues:
+        type: array
+        minItems: 1
+        items:
+          type: number
+    additionalProperties: false
+  pagination:
+    type: object
+    properties:
+      totalLines:
+        type: integer
+        minimum: 0
+      lineNumber:
+        type: integer
+        minimum: 1
+    additionalProperties: false

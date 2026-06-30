@@ -1,0 +1,68 @@
+openapi: 3.1.0
+info:
+  title: Materiality Calculator API
+  version: 1.0.0
+servers:
+  - url: https://example.com
+
+paths:
+  /calculation-request:
+    post:
+      summary: Submit a calculation request
+      operationId: submitCalculationRequest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./calculation-request.schema.yaml
+            examples:
+              sample:
+                summary: Example request
+                value:
+                  messageType: calculationRequest
+                  version: "1.0"
+                  salesforceCallMeta:
+                    SFCalculatorId: SF-12345
+                    mpanCore: "1234567890123"
+                    sentAt: "2026-06-30T15:00:00Z"
+                    totalLines: 2
+                  lines:
+                    - lineNumber: 1
+                      date: "2026-06-30"
+                      values: [1, 2, 3, 4]
+                    - lineNumber: 2
+                      date: "2026-07-01"
+                      values: [5, 6, 7, 8]
+      responses:
+        "200":
+          description: Calculation request accepted
+          content:
+            application/json:
+              schema:
+                $ref: ./calculation-request-ack.schema.yaml
+              examples:
+                ack:
+                  summary: Example success response
+                  value:
+                    receivedAt: "2026-06-30T15:01:00Z"
+                    requestId: req_123456
+                    SFCalculatorId: SF-12345
+                    mpanCore: "1234567890123"
+                    totalLines: 2
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: ./calculation-request-nack.schema.yaml
+              examples:
+                nack:
+                  summary: Example error response
+                  value:
+                    receivedAt: "2026-06-30T15:01:00Z"
+                    requestId: req_123456
+                    SFCalculatorId: SF-12345
+                    errors:
+                      - code: INVALID_PAYLOAD
+                        message: One or more fields are invalid.
